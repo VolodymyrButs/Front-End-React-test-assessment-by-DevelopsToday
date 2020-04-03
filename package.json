@@ -1,13 +1,14 @@
 {
-    "name": "nextjs-typescript",
+    "name": "test-for-developstoday",
     "version": "1.0.0",
-    "main": "index.js",
     "license": "MIT",
     "dependencies": {
         "@types/next": "^9.0.0",
         "@types/node": "^13.9.8",
         "@types/react": "^16.9.31",
         "@types/styled-components": "^5.0.1",
+        "@typescript-eslint/eslint-plugin": "^2.26.0",
+        "@typescript-eslint/parser": "^2.26.0",
         "@zeit/next-typescript": "^1.1.1",
         "axios": "^0.19.2",
         "babel-plugin-styled-components": "^1.10.7",
@@ -18,6 +19,8 @@
         "eslint-plugin-markdown": "^1.0.2",
         "eslint-plugin-no-only-tests": "^2.4.0",
         "eslint-plugin-prettier": "^3.1.2",
+        "eslint-plugin-react": "^7.19.0",
+        "eslint-plugin-react-hooks": "^3.0.0",
         "husky": "^4.2.3",
         "next": "^9.3.4",
         "now": "^17.1.1",
@@ -29,7 +32,6 @@
     },
     "scripts": {
         "dev": "next",
-        "now-build": "next build",
         "lint": "eslint '**/*.{tsx,ts,json,js,md}'",
         "format": "prettier --write '**/*.{tsx,ts,json,md,js,yml}'",
         "type-check": "tsc --noEmit"
@@ -43,7 +45,7 @@
         "**/*.{ts,tsx,json,js,md}": [
             "eslint  --fix"
         ],
-        "**/*.{ts,tsx,json,js,md,yml}": [
+        "**/*.{ts,tsx,json,md,yml}": [
             "prettier --write"
         ]
     }

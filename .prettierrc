@@ -3,10 +3,5 @@
     "semi": false,
     "singleQuote": true,
     "tabWidth": 4,
-    "trailingComma": "es5",
-    "ecmaVersion": 11,
-    "sourceType": "module",
-    "ecmaFeatures": {
-        "tsx": true
-    }
+    "trailingComma": "es5"
 }

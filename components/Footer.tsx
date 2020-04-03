@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 
 const FooterContainer = styled.div`
@@ -11,18 +12,16 @@ const FooterContainer = styled.div`
     align-items: center;
 `
 const FooterWraper = styled.div`
-    background: rgb(2, 0, 36);
-    background: linear-gradient(
-        90deg,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(9, 9, 117, 1) 50%,
-        rgba(2, 0, 36, 1) 100%
-    );
+    background: #020024;
+    background: linear-gradient(90deg, #020024 0%, #090975 50%, #020024 100%);
 `
 const Copiright = styled.a`
     color: white;
     font-size: 20px;
     text-decoration: none;
+    :hover {
+        color: lightgray;
+    }
 `
 
 export const Footer = () => {

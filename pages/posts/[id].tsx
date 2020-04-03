@@ -1,9 +1,12 @@
+import React, { useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 import Router from 'next/router'
 import styled from 'styled-components'
+import { GetServerSideProps } from 'next'
 
 import { Layout } from '../../components/Layout'
+import { IPost } from '../../features/posts/posts.types'
+
 const PostTitleWraper = styled.div`
     position: relative;
     width: 70%;
@@ -24,9 +27,6 @@ const PostTitle = styled.h1`
         width: 100%;
         background: green;
     }
-`
-const PostBody = styled.p`
-    min-height: calc(100vh - 280px);
 `
 const DeleteButtonWraper = styled.div`
     display: flex;
@@ -53,26 +53,23 @@ const DeleteNotifibation = styled.p`
     color: red;
     margin: 0;
 `
-const Post = ({ data }: any) => {
+interface IPostPageProps {
+    post: IPost
+}
+const PostPage: React.FC<IPostPageProps> = ({ post }) => {
     const [status, setStatus] = useState('')
     const deletePost = () => {
         axios
-            .delete('https://simple-blog-api.crew.red/posts/' + `${data.id}`)
-            .then(
-                () => (
-                    setStatus('Deleted'),
-                    setTimeout(() => Router.push('/'), 1000)
-                )
-            )
+            .delete('https://simple-blog-api.crew.red/posts/' + `${post.id}`)
+            .then(() => Router.push('/'))
             .catch(() => setStatus('Try again!'))
     }
-    console.log(data)
     return (
         <Layout>
             <PostTitleWraper>
-                <PostTitle>{data.title}</PostTitle>
+                <PostTitle>{post.title}</PostTitle>
             </PostTitleWraper>
-            <PostBody>{data.body}</PostBody>
+            <p>{post.body}</p>
             <DeleteButtonWraper>
                 <ButtonStyled onClick={deletePost}>Delete Post</ButtonStyled>
                 <DeleteNotifibation>{status}</DeleteNotifibation>
@@ -81,11 +78,11 @@ const Post = ({ data }: any) => {
     )
 }
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps: GetServerSideProps = async context => {
     const res = await axios.get(
-        'https://simple-blog-api.crew.red/posts/' + `${context.params.id}`
+        'https://simple-blog-api.crew.red/posts/' + `${context?.params?.id}`
     )
     const data = await res.data
-    return { props: { data } }
+    return { props: { post: data } }
 }
-export default Post
+export default PostPage

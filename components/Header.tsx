@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -13,13 +14,8 @@ const HeaderContainer = styled.div`
     align-items: center;
 `
 const HeaderWraper = styled.div`
-    background: rgb(2, 0, 36);
-    background: linear-gradient(
-        90deg,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(9, 9, 117, 1) 50%,
-        rgba(2, 0, 36, 1) 100%
-    );
+    background: #020024;
+    background: linear-gradient(90deg, #020024 0%, #090975 50%, #020024 100%);
 `
 const LogoText = styled.p`
     color: white;
@@ -27,56 +23,37 @@ const LogoText = styled.p`
     font-size: 14px;
     padding: 5px;
 `
+const LinkStyled = styled.a<{ isActive: boolean }>`
+    color: white;
+    font-size: 15px;
+    white-space: nowrap;
+    text-decoration-line: none;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: ${props => (props.isActive ? '#999' : '')};
+    :hover {
+        background-color: #fff;
+        color: darkblue;
+    }
+`
 
 export const Header = () => {
     const router = useRouter()
-    let styleHome = ''
-    let styleCreate = ''
-    if (router.pathname === '/') {
-        styleHome = 'background-color: #aaa;'
-        styleCreate = ''
-    } else if (router.pathname === '/createPost') {
-        styleHome = ''
-        styleCreate = 'background-color: #aaa;'
-    } else {
-        styleHome = ''
-        styleCreate = ''
-    }
-    const LinkStyledHome = styled.a`
-        color: white;
-        font-size: 15px;
-        white-space: nowrap;
-        text-decoration-line: none;
-        padding: 5px;
-        border: 2px solid white;
-        border-radius: 5px;
-        ${styleHome} :hover {
-            background-color: #fff;
-            color: darkblue;
-        }
-    `
-    const LinkStyledCreate = styled.a`
-        color: white;
-        font-size: 15px;
-        white-space: nowrap;
-        text-decoration-line: none;
-        padding: 5px;
-        border: 2px solid white;
-        border-radius: 5px;
-        ${styleCreate} :hover {
-            background-color: #fff;
-            color: darkblue;
-        }
-    `
+
     return (
         <HeaderWraper>
             <HeaderContainer>
                 <Link href="/" passHref>
-                    <LinkStyledHome>Home</LinkStyledHome>
+                    <LinkStyled isActive={router.pathname === '/'}>
+                        Home
+                    </LinkStyled>
                 </Link>
                 <LogoText>Poster - POSTS ABOUT PEOPLES</LogoText>
-                <Link href="/createPost" passHref>
-                    <LinkStyledCreate>Create Post</LinkStyledCreate>
+                <Link href="/create-post" passHref>
+                    <LinkStyled isActive={router.pathname === '/create-post'}>
+                        Create Post
+                    </LinkStyled>
                 </Link>
             </HeaderContainer>
         </HeaderWraper>

@@ -1,5 +1,5 @@
+import React, { useState } from 'react'
 import axios from 'axios'
-import { useState } from 'react'
 import Router from 'next/router'
 import styled from 'styled-components'
 
@@ -64,13 +64,13 @@ const CreatePost = () => {
     const [postTitle, setPostTitle] = useState('')
     const [postBody, setPostBody] = useState('')
     const [status, setStatus] = useState('')
-    const handleTitleChange = (e: any) => {
-        setPostTitle(e.target.value)
+    const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setPostTitle(e.currentTarget.value)
     }
-    const handleBodyChange = (e: any) => {
-        setPostBody(e.target.value)
+    const handleBodyChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        setPostBody(e.currentTarget.value)
     }
-    const sendPost = (e: any) => {
+    const sendPost = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         axios
             .post(
@@ -82,21 +82,17 @@ const CreatePost = () => {
                     },
                 }
             )
-            .then(
-                () => (
-                    setStatus('Created'),
-                    setTimeout(() => Router.push('/'), 1000)
-                )
-            )
+            .then(response => Router.push('/posts/' + `${response.data.id}`))
             .catch(() => setStatus('Try again!'))
     }
     return (
         <Layout>
             <HeadText>Here you can create your own post</HeadText>
             <InstructionTest>
-                To create a "New Post" enter the TITLE (max 100 symbols) and the
-                TEXT in the appropriate fields and click on <b>'create post'</b>
-                ' , then you will be redirected to the homepage.
+                To create a `&#39;`New Post`&#39;` enter the TITLE (max 100
+                symbols) and the TEXT in the appropriate fields and click on
+                <b>`&#39;`create post`&#39;`</b> , then you will be redirected
+                to the new post page.
             </InstructionTest>
             <FormStyled onSubmit={sendPost}>
                 <InputStyled
